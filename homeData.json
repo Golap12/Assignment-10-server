@@ -1,0 +1,69 @@
+[
+    {
+      "imageURL": "https://i.ibb.co/cxLzt3m/homeimg1.jpg",
+      "item_name": "DIY Greeting Card Kit",
+      "subcategory_Name": "Card Making",
+      "short_description": "Create beautiful handmade greeting cards with this DIY kit.",
+      "price": 14.99,
+      "rating": 4.8,
+      "customization": "Yes",
+      "processing_time": "1-3 business days",
+      "stockStatus": "In Stock"
+    },
+    {
+      "imageURL": "https://i.ibb.co/y5h9G0j/homeimg2.webp",
+      "item_name": "Scrapbooking Starter Kit",
+      "subcategory_Name": "Scrapbooking",
+      "short_description": "Get started with scrapbooking with this comprehensive starter kit.",
+      "price": 29.99,
+      "rating": 4.5,
+      "customization": "No",
+      "processing_time": "2-5 business days",
+      "stockStatus": "In Stock"
+    },
+    {
+      "imageURL": "https://i.ibb.co/TkCrLNs/homeimg3.jpg",
+      "item_name": "Paper Quilling Starter Set",
+      "subcategory_Name": "Paper Quilling & Origami",
+      "short_description": "Explore the art of paper quilling and origami with this beginner-friendly set.",
+      "price": 19.99,
+      "rating": 4.7,
+      "customization": "Yes",
+      "processing_time": "1-2 weeks",
+      "stockStatus": "In Stock"
+    },
+    {
+      "imageURL": "https://i.ibb.co/frDM0Qm/homeimg4.webp",
+      "item_name": "Glass Painting Kit",
+      "subcategory_Name": "Glass Painting",
+      "short_description": "Create stunning glass art with this complete glass painting kit.",
+      "price": 34.99,
+      "rating": 4.6,
+      "customization": "Yes",
+      "processing_time": "3-7 business days",
+      "stockStatus": "Made to Order"
+    },
+    {
+      "imageURL": "https://i.ibb.co/KbLDSYc/homeimg5.jpg",
+      "item_name": "Lampworking Torch Kit",
+      "subcategory_Name": "Lampworking",
+      "short_description": "Start lampworking with this professional-grade torch kit.",
+      "price": 149.99,
+      "rating": 4.9,
+      "customization": "No",
+      "processing_time": "1-2 weeks",
+      "stockStatus": "In Stock"
+    },
+    {
+      "imageURL": "https://i.ibb.co/wYkMt5d/homeimg6.jpg",
+      "item_name": "Glass Dyeing and Staining Set",
+      "subcategory_Name": "Glass Dying & Staining",
+      "short_description": "Experiment with vibrant colors on glass with this dyeing and staining set.",
+      "price": 39.99,
+      "rating": 4.4,
+      "customization": "No",
+      "processing_time": "2-4 weeks",
+      "stockStatus": "Made to Order"
+    }
+  ]
+  
