@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const homeData = require('./homeData.json')
 require('dotenv').config()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
@@ -35,6 +34,8 @@ async function run() {
 
     const addedItemCollection = client.db("artCraftDB").collection('addedItem');
 
+    const homeCollection = client.db("artCraftDB").collection('homeData');
+
 
     // Get myItems data
     app.get('/myItems/:email', async (req, res) => {
@@ -45,37 +46,48 @@ async function run() {
 
 
     // Get AddItem data
-    app.get('/addeditems', async (req, res) => {
+    app.get('/addedItems', async (req, res) => {
       const cursor = addedItemCollection.find();
       const result = await cursor.toArray();
       res.send(result)
     })
 
 
-    // Get item id 
-    app.get('/addeditems/:id', async (req, res) => {
-      const id = req.params.id
-      const query = { _id: new ObjectId(id) }
-      const result = await addedItemCollection.findOne(query)
+    // get home data 
+    app.get('/homeData', async (req, res) => {
+      const cursor = homeCollection.find();
+      const result = await cursor.toArray();
       res.send(result)
     })
 
 
-    // get home data
-    app.get('/homeData', (req, res) => {
-      res.send(homeData)
+    // Get AddItem id 
+    app.get('/addedItems/:id', async (req, res) => {
+      const id = req.params.id
+      const query = { _id: new ObjectId(id) };
+      const result = await addedItemCollection.findOne(query);
+      res.send(result)
+    })
+
+    // get home data for id
+    app.get('/homeData/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await homeCollection.findOne(query);
+      res.send(result)
     })
 
 
+
     // Post AddItem data
-    app.post('/addeditems', async (req, res) => {
+    app.post('/addedItems', async (req, res) => {
       const newAddItem = req.body;
       const result = await addedItemCollection.insertOne(newAddItem);
       res.send(result);
     })
 
     // Update method 
-    app.put('/addeditems/:id', async (req, res) => {
+    app.put('/addedItems/:id', async (req, res) => {
       const id = req.params.id
       const filter = { _id: new ObjectId(id) }
       const options = { upsert: true }
@@ -103,7 +115,7 @@ async function run() {
 
 
     // Delete method 
-    app.delete('/addeditems/:id', async (req, res) => {
+    app.delete('/addedItems/:id', async (req, res) => {
       const id = req.params.id
       const query = { _id: new ObjectId(id) }
       const result = await addedItemCollection.deleteOne(query)
