@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const homeData = require('./homeData.json')
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -51,6 +51,14 @@ async function run() {
         res.send(result)
     })
 
+
+
+    // app.get('/addeditems/:id', async (req, res) => {
+    //   const id = req.params.id
+    //   const query = {_id: new ObjectId(id)}
+    //     res.send(result)
+    // })
+
     
     // get home data
     app.get('/homeData', (req, res) => {
@@ -63,6 +71,16 @@ async function run() {
         const newAddItem = req.body;
         const result = await addedItemCollection.insertOne(newAddItem);
         res.send(result);
+    })
+
+    
+
+    // Delete method 
+    app.delete('/addeditems/:id', async (req, res) => {
+        const id = req.params.id
+        const query = {_id: new ObjectId(id)}
+        const result = await addedItemCollection.deleteOne(query)
+        res.send(result)
     })
 
 
