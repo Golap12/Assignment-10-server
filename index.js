@@ -38,7 +38,7 @@ async function run() {
 
     // Get myItems data
     app.get('/myItems/:email', async (req, res) => {
-      const result = await addedItemCollection.find({email:req.params.email}).toArray();
+      const result = await addedItemCollection.find({ email: req.params.email }).toArray();
       res.send(result)
     })
 
@@ -46,45 +46,72 @@ async function run() {
 
     // Get AddItem data
     app.get('/addeditems', async (req, res) => {
-        const cursor = addedItemCollection.find();
-        const result = await cursor.toArray();
-        res.send(result)
+      const cursor = addedItemCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
     })
 
 
+    // Get item id 
+    app.get('/addeditems/:id', async (req, res) => {
+      const id = req.params.id
+      const query = { _id: new ObjectId(id) }
+      const result = await addedItemCollection.findOne(query)
+      res.send(result)
+    })
 
-    // app.get('/addeditems/:id', async (req, res) => {
-    //   const id = req.params.id
-    //   const query = {_id: new ObjectId(id)}
-    //     res.send(result)
-    // })
 
-    
     // get home data
     app.get('/homeData', (req, res) => {
-        res.send(homeData)
+      res.send(homeData)
     })
 
 
-     
+    // Post AddItem data
     app.post('/addeditems', async (req, res) => {
-        const newAddItem = req.body;
-        const result = await addedItemCollection.insertOne(newAddItem);
-        res.send(result);
+      const newAddItem = req.body;
+      const result = await addedItemCollection.insertOne(newAddItem);
+      res.send(result);
     })
 
-    
+    // Update method 
+    app.put('/addeditems/:id', async (req, res) => {
+      const id = req.params.id
+      const filter = { _id: new ObjectId(id) }
+      const options = { upsert: true }
+      const updateItem = req.body;
+      const item = {
+        $set: {
+          subcategory_Name: updateItem.subcategory_Name,
+          item_name: updateItem.item_name,
+          shortDescription: updateItem.shortDescription,
+          price: updateItem.price,
+          rating: updateItem.rating,
+          customization: updateItem.customization,
+          processing_time: updateItem.processing_time,
+          stockStatus: updateItem.stockStatus,
+          photoURL: updateItem.photoURL,
+          user_Name: updateItem.user_Name,
+          email: updateItem.email
+        }
+      }
+
+      const result = await addedItemCollection.updateOne(filter, item, options)
+      res.send(result)
+    })
+
+
 
     // Delete method 
     app.delete('/addeditems/:id', async (req, res) => {
-        const id = req.params.id
-        const query = {_id: new ObjectId(id)}
-        const result = await addedItemCollection.deleteOne(query)
-        res.send(result)
+      const id = req.params.id
+      const query = { _id: new ObjectId(id) }
+      const result = await addedItemCollection.deleteOne(query)
+      res.send(result)
     })
 
 
-    
+
 
 
 
@@ -102,9 +129,9 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Assignment 10 server is running')
+  res.send('Assignment 10 server is running')
 })
 
 app.listen(port, () => {
-    console.log(`Assignment 10 server is running on port ${port}`);
+  console.log(`Assignment 10 server is running on port ${port}`);
 })
