@@ -32,12 +32,13 @@ async function run() {
     await client.connect();
 
 
-    const addedItemCollection = client.db("artCraftDB").collection('addedItem');
-
+    const addedItemCollection = client.db("artCraftDB").collection('allitems');
     const homeCollection = client.db("artCraftDB").collection('homeData');
 
 
-    // Get myItems data
+
+
+    // Get myItems by email
     app.get('/myItems/:email', async (req, res) => {
       const result = await addedItemCollection.find({ email: req.params.email }).toArray();
       res.send(result)
@@ -45,15 +46,16 @@ async function run() {
 
 
 
-    // Get AddItem data
-    app.get('/addedItems', async (req, res) => {
+    // Get all items
+    app.get('/allitems', async (req, res) => {
       const cursor = addedItemCollection.find();
       const result = await cursor.toArray();
       res.send(result)
     })
 
 
-    // get home data 
+
+    // Get all home items
     app.get('/homeData', async (req, res) => {
       const cursor = homeCollection.find();
       const result = await cursor.toArray();
@@ -61,33 +63,41 @@ async function run() {
     })
 
 
-    // Get AddItem id 
-    app.get('/addedItems/:id', async (req, res) => {
-      const id = req.params.id
+
+
+    // Get items by id 
+    app.get('/allitems/:id', async (req, res) => {
+      const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await addedItemCollection.findOne(query);
       res.send(result)
-    })
+    });
 
-    // get home data for id
-    app.get('/homeData/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await homeCollection.findOne(query);
-      res.send(result)
-    })
+    
+
+    // Get items by subcategory
+    app.get('/allitems/subcategory/:subcategory', async (req, res) => {
+      const subcategory = req.params.subcategory;
+      const query = { subcategory_Name: subcategory };
+      const result = await addedItemCollection.find(query).toArray();
+      res.send(result);
+    });
+    
 
 
 
-    // Post AddItem data
-    app.post('/addedItems', async (req, res) => {
+
+    // Post item data
+    app.post('/allitems', async (req, res) => {
       const newAddItem = req.body;
       const result = await addedItemCollection.insertOne(newAddItem);
       res.send(result);
     })
 
+
+
     // Update method 
-    app.put('/addedItems/:id', async (req, res) => {
+    app.put('/allitems/:id', async (req, res) => {
       const id = req.params.id
       const filter = { _id: new ObjectId(id) }
       const options = { upsert: true }
@@ -115,7 +125,7 @@ async function run() {
 
 
     // Delete method 
-    app.delete('/addedItems/:id', async (req, res) => {
+    app.delete('/allitems/:id', async (req, res) => {
       const id = req.params.id
       const query = { _id: new ObjectId(id) }
       const result = await addedItemCollection.deleteOne(query)
